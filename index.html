@@ -47,7 +47,7 @@
 
 
         /* ==================================================
-           登入區
+           登入
         ================================================== */
 
         .login-box {
@@ -83,6 +83,8 @@
             max-width: 320px;
 
             height: auto;
+
+            border-radius: 6px;
         }
 
 
@@ -116,7 +118,8 @@
         }
 
 
-        input {
+        input,
+        textarea {
 
             width: 100%;
 
@@ -129,10 +132,21 @@
             font-size: 15px;
 
             background: #fff;
+
+            font-family: inherit;
         }
 
 
-        input:focus {
+        textarea {
+
+            min-height: 90px;
+
+            resize: vertical;
+        }
+
+
+        input:focus,
+        textarea:focus {
 
             outline: none;
 
@@ -191,11 +205,13 @@
             font-size: 14px;
 
             color: #d00;
+
+            min-height: 20px;
         }
 
 
         /* ==================================================
-           後台
+           Dashboard
         ================================================== */
 
         #dashboard {
@@ -271,7 +287,7 @@
 
 
         /* ==================================================
-           客戶列表
+           Card
         ================================================== */
 
         .card {
@@ -302,11 +318,19 @@
         }
 
 
+        /* ==================================================
+           搜尋
+        ================================================== */
+
         .search {
 
             margin-bottom: 15px;
         }
 
+
+        /* ==================================================
+           客戶列表
+        ================================================== */
 
         .customer-list {
 
@@ -374,8 +398,18 @@
         }
 
 
+        .loading {
+
+            text-align: center;
+
+            color: #666;
+
+            padding: 20px;
+        }
+
+
         /* ==================================================
-           客戶詳細資料
+           客戶詳細
         ================================================== */
 
         #customerDetail {
@@ -489,7 +523,7 @@
 
 
         /* ==================================================
-           維修紀錄
+           維修
         ================================================== */
 
         .repair-item {
@@ -521,6 +555,8 @@
             font-size: 14px;
 
             line-height: 1.7;
+
+            word-break: break-word;
         }
 
 
@@ -532,40 +568,18 @@
         }
 
 
-        /* ==================================================
-           維修表單
-        ================================================== */
-
         .repair-form {
 
-            margin-top: 15px;
+            margin-top: 20px;
 
-            padding-top: 15px;
+            padding-top: 20px;
 
             border-top: 1px solid #eee;
         }
 
 
-        textarea {
-
-            width: 100%;
-
-            min-height: 90px;
-
-            padding: 10px;
-
-            border: 1px solid #ddd;
-
-            border-radius: 7px;
-
-            font-size: 15px;
-
-            resize: vertical;
-        }
-
-
         /* ==================================================
-           修改帳號密碼
+           帳號設定
         ================================================== */
 
         .account-box {
@@ -582,29 +596,29 @@
         }
 
 
-        .danger-btn {
-
-            background: #b42318;
-        }
-
-
-        .danger-btn:hover {
-
-            background: #8f1c14;
-        }
-
-
         /* ==================================================
-           Loading
+           首次登入提示
         ================================================== */
 
-        .loading {
+        .first-login-notice {
 
-            text-align: center;
+            display: none;
 
-            color: #666;
+            padding: 12px 15px;
 
-            padding: 20px;
+            background: #fff7e6;
+
+            border: 1px solid #ffd591;
+
+            color: #874d00;
+
+            border-radius: 8px;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+
+            line-height: 1.6;
         }
 
 
@@ -617,6 +631,14 @@
             body {
 
                 padding: 10px;
+            }
+
+
+            .login-box {
+
+                margin: 20px auto;
+
+                padding: 20px;
             }
 
 
@@ -636,6 +658,20 @@
             .photo-item img {
 
                 height: 130px;
+            }
+
+
+            .info-row {
+
+                display: block;
+            }
+
+
+            .info-label {
+
+                width: auto;
+
+                margin-bottom: 4px;
             }
 
         }
@@ -727,7 +763,7 @@
 
 
     <!-- ==================================================
-         後台首頁
+         後台
     ================================================== -->
 
     <div
@@ -768,12 +804,29 @@
 
 
         <!-- ==================================================
-             客戶列表
+             客戶列表頁
         ================================================== -->
 
         <div
             id="customerListPage"
         >
+
+            <!-- 首次登入提示 -->
+
+            <div
+                id="firstLoginNotice"
+                class="first-login-notice"
+            >
+
+                ⚠️ 這是第一次登入。
+
+                <br>
+
+                為了帳號安全，請先在下方
+                「帳號設定」修改帳號與密碼。
+
+            </div>
+
 
             <div class="card">
 
@@ -811,7 +864,7 @@
 
 
             <!-- ==================================================
-                 修改帳號密碼
+                 帳號設定
             ================================================== -->
 
             <div class="card">
@@ -836,7 +889,8 @@
                     <input
                         type="text"
                         id="newUsername"
-                        placeholder="輸入新的帳號"
+                        placeholder="至少 4 個字元"
+                        autocomplete="username"
                     >
 
 
@@ -850,11 +904,28 @@
                     <input
                         type="password"
                         id="newPassword"
-                        placeholder="輸入新的密碼"
+                        placeholder="至少 8 個字元"
+                        autocomplete="new-password"
+                    >
+
+
+                    <label for="confirmPassword">
+
+                        確認新密碼
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="再次輸入新密碼"
+                        autocomplete="new-password"
                     >
 
 
                     <button
+                        id="changeAccountBtn"
                         onclick="changeDealerAccount()"
                     >
 
@@ -896,7 +967,9 @@
 
 
 
-            <!-- 客戶基本資料 -->
+            <!-- ==================================================
+                 客戶基本資料
+            ================================================== -->
 
             <div class="card">
 
@@ -907,13 +980,17 @@
                 </div>
 
 
-                <div id="customerInfo"></div>
+                <div
+                    id="customerInfo"
+                ></div>
 
             </div>
 
 
 
-            <!-- 客戶照片 -->
+            <!-- ==================================================
+                 客戶照片
+            ================================================== -->
 
             <div class="card">
 
@@ -933,7 +1010,9 @@
 
 
 
-            <!-- 維修歷史 -->
+            <!-- ==================================================
+                 維修歷史
+            ================================================== -->
 
             <div class="card">
 
@@ -950,10 +1029,11 @@
 
 
 
-                <!-- 新增維修 -->
+                <!-- ==================================================
+                     新增維修
+                ================================================== -->
 
                 <div class="repair-form">
-
 
                     <div class="card-title">
 
@@ -1052,7 +1132,6 @@
 
                     </button>
 
-
                 </div>
 
             </div>
@@ -1081,7 +1160,7 @@ const GOOGLE_API_URL =
 
 
 // =====================================================
-// 登入資訊
+// 全域變數
 // =====================================================
 
 let dealerToken =
@@ -1100,6 +1179,13 @@ let customers = [];
 
 
 let currentCustomer = null;
+
+
+// 防止重複送出
+
+let isSubmittingRepair = false;
+
+let isChangingAccount = false;
 
 
 
@@ -1242,6 +1328,47 @@ async function dealerLogin() {
             loadCustomers();
 
 
+            // =========================================
+            // 第一次登入
+            // =========================================
+
+            if (
+                data.mustChangePassword
+            ) {
+
+                document.getElementById(
+                    "firstLoginNotice"
+                ).style.display =
+                    "block";
+
+
+                setTimeout(
+                    function() {
+
+                        document.getElementById(
+                            "newUsername"
+                        ).focus();
+
+                    },
+                    300
+                );
+
+
+                alert(
+                    "這是第一次登入。\n\n" +
+                    "為了帳號安全，請先修改帳號與密碼。"
+                );
+
+            } else {
+
+                document.getElementById(
+                    "firstLoginNotice"
+                ).style.display =
+                    "none";
+
+            }
+
+
         } else {
 
             message.innerText =
@@ -1354,8 +1481,10 @@ async function loadCustomers() {
 
             list.innerHTML =
                 '<div class="empty">' +
-                (data.message ||
-                    "讀取失敗") +
+                escapeHtml(
+                    data.message ||
+                    "讀取失敗"
+                ) +
                 '</div>';
 
             return;
@@ -1377,7 +1506,9 @@ async function loadCustomers() {
 
 
         list.innerHTML =
-            '<div class="empty">無法讀取客戶資料</div>';
+            '<div class="empty">' +
+            '無法讀取客戶資料' +
+            '</div>';
 
     }
 
@@ -1437,48 +1568,58 @@ function renderCustomers(listData) {
                 };
 
 
+            const name =
+                customer.name ||
+                "未填寫姓名";
+
+
+            const phone =
+                customer.phone ||
+                "-";
+
+
+            const address =
+                customer.address ||
+                "-";
+
+
+            const model =
+                customer.model ||
+                "-";
+
+
+            const installDate =
+                customer.installDate ||
+                "-";
+
+
             item.innerHTML = `
 
                 <div class="customer-name">
 
-                    ${escapeHtml(
-                        customer.name ||
-                        "未填寫姓名"
-                    )}
+                    ${escapeHtml(name)}
 
                 </div>
 
                 <div class="customer-info">
 
                     電話：
-                    ${escapeHtml(
-                        customer.phone ||
-                        "-"
-                    )}
+                    ${escapeHtml(phone)}
 
                     <br>
 
                     地址：
-                    ${escapeHtml(
-                        customer.address ||
-                        "-"
-                    )}
+                    ${escapeHtml(address)}
 
                     <br>
 
                     機型：
-                    ${escapeHtml(
-                        customer.model ||
-                        "-"
-                    )}
+                    ${escapeHtml(model)}
 
                     <br>
 
                     安裝日期：
-                    ${escapeHtml(
-                        customer.installDate ||
-                        "-"
-                    )}
+                    ${escapeHtml(installDate)}
 
                 </div>
 
@@ -1557,10 +1698,18 @@ function filterCustomers() {
 
 
 // =====================================================
-// 開啟客戶詳細資料
+// 開啟客戶
 // =====================================================
 
 async function openCustomer(userId) {
+
+    if (!dealerToken) {
+
+        forceLogout();
+
+        return;
+    }
+
 
     document.getElementById(
         "customerListPage"
@@ -1577,7 +1726,9 @@ async function openCustomer(userId) {
     document.getElementById(
         "customerInfo"
     ).innerHTML =
-        '<div class="loading">正在讀取客戶資料...</div>';
+        '<div class="loading">' +
+        '正在讀取客戶資料...' +
+        '</div>';
 
 
     document.getElementById(
@@ -1664,12 +1815,32 @@ async function openCustomer(userId) {
 
         // 預設今天
 
+        const today =
+            new Date();
+
+
+        const yyyy =
+            today.getFullYear();
+
+
+        const mm =
+            String(
+                today.getMonth() + 1
+            )
+            .padStart(2, "0");
+
+
+        const dd =
+            String(
+                today.getDate()
+            )
+            .padStart(2, "0");
+
+
         document.getElementById(
             "repairDate"
         ).value =
-            new Date()
-                .toISOString()
-                .split("T")[0];
+            `${yyyy}-${mm}-${dd}`;
 
 
     } catch (error) {
@@ -1691,7 +1862,7 @@ async function openCustomer(userId) {
 
 
 // =====================================================
-// 顯示客戶資料
+// 客戶資料
 // =====================================================
 
 function renderCustomerInfo(customer) {
@@ -1705,7 +1876,9 @@ function renderCustomerInfo(customer) {
     if (!customer) {
 
         box.innerHTML =
-            '<div class="empty">找不到客戶資料</div>';
+            '<div class="empty">' +
+            '找不到客戶資料' +
+            '</div>';
 
         return;
     }
@@ -1794,7 +1967,7 @@ function renderCustomerInfo(customer) {
 
 
 // =====================================================
-// 顯示照片
+// 照片
 // =====================================================
 
 function renderPhotos(photos) {
@@ -1814,7 +1987,9 @@ function renderPhotos(photos) {
     ) {
 
         grid.innerHTML =
-            '<div class="empty">尚無歷史照片</div>';
+            '<div class="empty">' +
+            '尚無歷史照片' +
+            '</div>';
 
         return;
     }
@@ -1833,44 +2008,60 @@ function renderPhotos(photos) {
                 "photo-item";
 
 
-            item.innerHTML = `
-
-                <img
-                    src="${escapeAttribute(
-                        photo.url
-                    )}"
-                    alt="客戶照片"
-                    onclick="window.open(
-                        '${escapeAttribute(
-                            photo.url
-                        )}',
-                        '_blank'
-                    )"
-                >
+            const img =
+                document.createElement(
+                    "img"
+                );
 
 
-                <div class="photo-name">
-
-                    ${escapeHtml(
-                        photo.filename ||
-                        ""
-                    )}
-
-                    <br>
-
-                    ${escapeHtml(
-                        photo.uploadTime ||
-                        ""
-                    )}
-
-                </div>
-
-            `;
+            img.src =
+                photo.url || "";
 
 
-            grid.appendChild(
-                item
-            );
+            img.alt =
+                "客戶照片";
+
+
+            img.loading =
+                "lazy";
+
+
+            img.onclick =
+                function() {
+
+                    if (photo.url) {
+
+                        window.open(
+                            photo.url,
+                            "_blank"
+                        );
+
+                    }
+
+                };
+
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+
+            name.className =
+                "photo-name";
+
+
+            name.innerText =
+                (photo.filename || "") +
+                "\n" +
+                (photo.uploadTime || "");
+
+
+            item.appendChild(img);
+
+            item.appendChild(name);
+
+            grid.appendChild(item);
 
         }
     );
@@ -1880,7 +2071,7 @@ function renderPhotos(photos) {
 
 
 // =====================================================
-// 顯示維修紀錄
+// 維修紀錄
 // =====================================================
 
 function renderRepairs(repairs) {
@@ -1900,7 +2091,9 @@ function renderRepairs(repairs) {
     ) {
 
         list.innerHTML =
-            '<div class="empty">尚無維修紀錄</div>';
+            '<div class="empty">' +
+            '尚無維修紀錄' +
+            '</div>';
 
         return;
     }
@@ -2039,6 +2232,12 @@ function renderRepairs(repairs) {
 
 async function addRepair() {
 
+    if (isSubmittingRepair) {
+
+        return;
+    }
+
+
     if (
         !currentCustomer ||
         !currentCustomer.userId
@@ -2047,6 +2246,14 @@ async function addRepair() {
         alert(
             "尚未選擇客戶"
         );
+
+        return;
+    }
+
+
+    if (!dealerToken) {
+
+        forceLogout();
 
         return;
     }
@@ -2112,6 +2319,9 @@ async function addRepair() {
         document.getElementById(
             "addRepairBtn"
         );
+
+
+    isSubmittingRepair = true;
 
 
     btn.disabled = true;
@@ -2189,8 +2399,6 @@ async function addRepair() {
             );
 
 
-            // 清空表單
-
             document.getElementById(
                 "repairType"
             ).value = "";
@@ -2216,14 +2424,25 @@ async function addRepair() {
             ).value = "";
 
 
-            // 重新讀取客戶
-
-            openCustomer(
+            await openCustomer(
                 currentCustomer.userId
             );
 
 
         } else {
+
+            if (
+                data.message &&
+                data.message.includes(
+                    "登入"
+                )
+            ) {
+
+                forceLogout();
+
+                return;
+            }
+
 
             alert(
                 data.message ||
@@ -2244,6 +2463,8 @@ async function addRepair() {
 
     } finally {
 
+        isSubmittingRepair = false;
+
         btn.disabled = false;
 
         btn.innerText =
@@ -2256,10 +2477,24 @@ async function addRepair() {
 
 
 // =====================================================
-// 修改經銷商帳號密碼
+// 修改帳號密碼
 // =====================================================
 
 async function changeDealerAccount() {
+
+    if (isChangingAccount) {
+
+        return;
+    }
+
+
+    if (!dealerToken) {
+
+        forceLogout();
+
+        return;
+    }
+
 
     const newUsername =
         document.getElementById(
@@ -2273,14 +2508,30 @@ async function changeDealerAccount() {
         ).value;
 
 
+    const confirmPassword =
+        document.getElementById(
+            "confirmPassword"
+        ).value;
+
+
     const message =
         document.getElementById(
             "accountMessage"
         );
 
 
+    const btn =
+        document.getElementById(
+            "changeAccountBtn"
+        );
+
+
     message.innerText = "";
 
+
+    // =================================================
+    // 驗證帳號
+    // =================================================
 
     if (!newUsername) {
 
@@ -2291,6 +2542,19 @@ async function changeDealerAccount() {
     }
 
 
+    if (newUsername.length < 4) {
+
+        message.innerText =
+            "帳號至少需要 4 個字元";
+
+        return;
+    }
+
+
+    // =================================================
+    // 驗證密碼
+    // =================================================
+
     if (!newPassword) {
 
         message.innerText =
@@ -2300,20 +2564,44 @@ async function changeDealerAccount() {
     }
 
 
-    if (
-        newPassword.length < 6
-    ) {
+    if (newPassword.length < 8) {
 
         message.innerText =
-            "新密碼至少需要 6 個字元";
+            "新密碼至少需要 8 個字元";
 
         return;
     }
 
 
+    if (!confirmPassword) {
+
+        message.innerText =
+            "請再次輸入新密碼";
+
+        return;
+    }
+
+
+    if (
+        newPassword !==
+        confirmPassword
+    ) {
+
+        message.innerText =
+            "兩次輸入的密碼不一致";
+
+        return;
+    }
+
+
+    // =================================================
+    // 確認
+    // =================================================
+
     const confirmChange =
         confirm(
-            "確定要修改帳號與密碼嗎？\n修改後需要使用新的帳號密碼重新登入。"
+            "確定要修改帳號與密碼嗎？\n\n" +
+            "修改後請記住新的登入帳號與密碼。"
         );
 
 
@@ -2321,6 +2609,15 @@ async function changeDealerAccount() {
 
         return;
     }
+
+
+    isChangingAccount = true;
+
+
+    btn.disabled = true;
+
+    btn.innerText =
+        "修改中...";
 
 
     try {
@@ -2345,7 +2642,7 @@ async function changeDealerAccount() {
                         JSON.stringify({
 
                             action:
-                                "changeDealerAccount",
+                                "changeDealerCredentials",
 
                             token:
                                 dealerToken,
@@ -2354,7 +2651,10 @@ async function changeDealerAccount() {
                                 newUsername,
 
                             newPassword:
-                                newPassword
+                                newPassword,
+
+                            confirmPassword:
+                                confirmPassword
 
                         })
 
@@ -2373,14 +2673,88 @@ async function changeDealerAccount() {
         ) {
 
             alert(
-                "帳號密碼修改成功，請使用新帳號重新登入。"
+                "帳號與密碼修改成功！"
             );
 
 
-            forceLogout();
+            if (data.username) {
+
+                localStorage.setItem(
+                    "dealerUsername",
+                    data.username
+                );
+
+            }
+
+
+            if (data.dealerName) {
+
+                currentDealerName =
+                    data.dealerName;
+
+
+                localStorage.setItem(
+                    "dealerName",
+                    currentDealerName
+                );
+
+
+                document.getElementById(
+                    "dealerName"
+                ).innerText =
+                    "經銷商：" +
+                    currentDealerName;
+
+            }
+
+
+            document.getElementById(
+                "newUsername"
+            ).value = "";
+
+
+            document.getElementById(
+                "newPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "confirmPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "firstLoginNotice"
+            ).style.display =
+                "none";
+
+
+            message.style.color =
+                "#087443";
+
+
+            message.innerText =
+                "帳號與密碼修改成功";
 
 
         } else {
+
+            if (
+                data.message &&
+                data.message.includes(
+                    "登入"
+                )
+            ) {
+
+                forceLogout();
+
+                return;
+            }
+
+
+            message.style.color =
+                "#d00";
+
 
             message.innerText =
                 data.message ||
@@ -2394,8 +2768,21 @@ async function changeDealerAccount() {
         console.error(error);
 
 
+        message.style.color =
+            "#d00";
+
+
         message.innerText =
             "無法連線到伺服器";
+
+    } finally {
+
+        isChangingAccount = false;
+
+        btn.disabled = false;
+
+        btn.innerText =
+            "修改帳號密碼";
 
     }
 
@@ -2483,6 +2870,11 @@ function forceLogout() {
     );
 
 
+    localStorage.removeItem(
+        "dealerUsername"
+    );
+
+
     document.getElementById(
         "dashboard"
     ).style.display =
@@ -2493,6 +2885,18 @@ function forceLogout() {
         "loginPage"
     ).style.display =
         "block";
+
+
+    document.getElementById(
+        "customerListPage"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "customerDetail"
+    ).style.display =
+        "none";
 
 
     document.getElementById(
@@ -2508,6 +2912,12 @@ function forceLogout() {
     document.getElementById(
         "loginMessage"
     ).innerText = "";
+
+
+    document.getElementById(
+        "firstLoginNotice"
+    ).style.display =
+        "none";
 
 }
 
@@ -2552,7 +2962,6 @@ function escapeHtml(value) {
     ) {
 
         return "";
-
     }
 
 
@@ -2588,20 +2997,50 @@ function escapeHtml(value) {
 
 
 // =====================================================
-// Attribute 安全處理
+// Enter 登入
 // =====================================================
 
-function escapeAttribute(value) {
+document.getElementById(
+    "password"
+).addEventListener(
+    "keydown",
+    function(event) {
 
-    return escapeHtml(
-        value
-    )
-    .replace(
-        /`/g,
-        "&#096;"
-    );
+        if (
+            event.key ===
+            "Enter"
+        ) {
 
-}
+            dealerLogin();
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// Enter 確認修改帳號
+// =====================================================
+
+document.getElementById(
+    "confirmPassword"
+).addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Enter"
+        ) {
+
+            changeDealerAccount();
+
+        }
+
+    }
+);
+
 
 </script>
 
