@@ -3,468 +3,644 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>三久太陽能｜經銷商後台</title>
+    <title>三久太陽能｜經銷商後台</title>
 
 
-<style>
+    <style>
 
-* {
-    box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
 
-body {
+        body {
 
-    margin: 0;
+            margin: 0;
 
-    padding: 20px;
+            padding: 20px;
 
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
 
-    background: #f3f5f8;
+            background: #f5f5f5;
 
-    color: #333;
-}
+            color: #333;
+        }
 
 
-.container {
+        .container {
 
-    width: 100%;
+            max-width: 900px;
 
-    max-width: 900px;
+            margin: 0 auto;
+        }
 
-    margin: 0 auto;
-}
 
+        /* ==================================================
+           登入區
+        ================================================== */
 
-.card {
+        .login-box {
 
-    background: white;
+            max-width: 400px;
 
-    border-radius: 14px;
+            margin: 50px auto;
 
-    padding: 20px;
+            background: white;
 
-    margin-bottom: 20px;
+            padding: 30px;
 
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,0.08);
-}
+            border-radius: 14px;
 
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.08);
+        }
 
-.logo {
 
-    text-align: center;
+        .logo {
 
-    margin-bottom: 20px;
-}
+            text-align: center;
 
+            margin-bottom: 25px;
+        }
 
-.logo img {
 
-    width: 100%;
+        .logo img {
 
-    max-width: 400px;
+            width: 100%;
 
-    height: auto;
-}
+            max-width: 320px;
 
+            height: auto;
+        }
 
-h1 {
 
-    text-align: center;
+        .title {
 
-    color: #003C9D;
+            text-align: center;
 
-    font-size: 24px;
+            font-size: 22px;
 
-    margin-bottom: 20px;
-}
+            font-weight: bold;
 
+            color: #003C9D;
 
-h2 {
+            margin-bottom: 20px;
+        }
 
-    font-size: 19px;
 
-    color: #003C9D;
+        label {
 
-    margin-top: 0;
-}
+            display: block;
 
+            margin-top: 15px;
 
-h3 {
+            margin-bottom: 6px;
 
-    font-size: 17px;
+            font-size: 14px;
 
-    margin-bottom: 10px;
-}
+            font-weight: bold;
 
+            color: #333;
+        }
 
-label {
 
-    display: block;
+        input {
 
-    margin-top: 12px;
+            width: 100%;
 
-    margin-bottom: 6px;
+            padding: 12px;
 
-    font-weight: bold;
+            border: 1px solid #ddd;
 
-    font-size: 14px;
-}
+            border-radius: 7px;
 
+            font-size: 15px;
 
-input,
-textarea,
-select {
+            background: #fff;
+        }
 
-    width: 100%;
 
-    padding: 11px;
+        input:focus {
 
-    border: 1px solid #ddd;
+            outline: none;
 
-    border-radius: 7px;
+            border-color: #003C9D;
 
-    font-size: 15px;
+            box-shadow:
+                0 0 0 2px
+                rgba(0,60,157,0.08);
+        }
 
-    background: white;
-}
 
+        button {
 
-textarea {
+            width: 100%;
 
-    min-height: 90px;
+            padding: 12px;
 
-    resize: vertical;
-}
+            margin-top: 18px;
 
+            border: none;
 
-button {
+            border-radius: 7px;
 
-    width: 100%;
+            background: #003C9D;
 
-    padding: 12px;
+            color: white;
 
-    margin-top: 15px;
+            font-size: 16px;
 
-    border: none;
+            font-weight: bold;
 
-    border-radius: 7px;
+            cursor: pointer;
+        }
 
-    background: #003C9D;
 
-    color: white;
+        button:hover {
 
-    font-size: 16px;
+            background: #002d75;
+        }
 
-    font-weight: bold;
 
-    cursor: pointer;
-}
+        button:disabled {
 
+            background: #999;
 
-button:hover {
+            cursor: not-allowed;
+        }
 
-    background: #002d75;
-}
 
+        .message {
 
-button:disabled {
+            text-align: center;
 
-    background: #999;
+            margin-top: 12px;
 
-    cursor: not-allowed;
-}
+            font-size: 14px;
 
+            color: #d00;
+        }
 
-.secondary {
 
-    background: #666;
-}
+        /* ==================================================
+           後台
+        ================================================== */
 
+        #dashboard {
 
-.danger {
+            display: none;
+        }
 
-    background: #b00020;
-}
 
+        .header {
 
-.hidden {
+            background: white;
 
-    display: none !important;
-}
+            padding: 18px 20px;
 
+            border-radius: 12px;
 
-.status {
+            box-shadow:
+                0 3px 10px
+                rgba(0,0,0,0.06);
 
-    text-align: center;
+            margin-bottom: 15px;
 
-    margin-top: 12px;
+            display: flex;
 
-    color: #666;
+            justify-content: space-between;
 
-    font-size: 14px;
-}
+            align-items: center;
 
+            gap: 10px;
 
-.topbar {
+            flex-wrap: wrap;
+        }
 
-    display: flex;
 
-    justify-content: space-between;
+        .header-title {
 
-    align-items: center;
+            font-size: 20px;
 
-    gap: 10px;
+            font-weight: bold;
 
-    margin-bottom: 20px;
-}
+            color: #003C9D;
+        }
 
 
-.topbar button {
+        .dealer-name {
 
-    width: auto;
+            font-size: 14px;
 
-    padding: 8px 15px;
+            color: #666;
 
-    margin: 0;
+            margin-top: 4px;
+        }
 
-    font-size: 14px;
-}
 
+        .logout-btn {
 
-.dealer-name {
+            width: auto;
 
-    font-weight: bold;
+            margin: 0;
 
-    color: #003C9D;
-}
+            padding: 9px 16px;
 
+            font-size: 14px;
 
-.search-box {
+            background: #666;
+        }
 
-    display: flex;
 
-    gap: 10px;
-}
+        .logout-btn:hover {
 
+            background: #444;
+        }
 
-.search-box input {
 
-    flex: 1;
-}
+        /* ==================================================
+           客戶列表
+        ================================================== */
 
+        .card {
 
-.search-box button {
+            background: white;
 
-    width: 100px;
+            padding: 20px;
 
-    margin: 0;
-}
+            border-radius: 12px;
 
+            box-shadow:
+                0 3px 10px
+                rgba(0,0,0,0.06);
 
-.customer-item {
+            margin-bottom: 15px;
+        }
 
-    border: 1px solid #eee;
 
-    border-radius: 10px;
+        .card-title {
 
-    padding: 14px;
+            font-size: 17px;
 
-    margin-top: 10px;
+            font-weight: bold;
 
-    cursor: pointer;
+            margin-bottom: 15px;
 
-    background: #fff;
-}
+            color: #333;
+        }
 
 
-.customer-item:hover {
+        .search {
 
-    background: #f5f8ff;
+            margin-bottom: 15px;
+        }
 
-    border-color: #003C9D;
-}
 
+        .customer-list {
 
-.customer-name {
+            display: flex;
 
-    font-size: 17px;
+            flex-direction: column;
 
-    font-weight: bold;
+            gap: 10px;
+        }
 
-    color: #003C9D;
-}
 
+        .customer-item {
 
-.customer-info {
+            padding: 15px;
 
-    margin-top: 5px;
+            border: 1px solid #eee;
 
-    color: #666;
+            border-radius: 9px;
 
-    font-size: 14px;
+            cursor: pointer;
 
-    line-height: 1.7;
-}
+            transition: 0.2s;
 
+            background: #fff;
+        }
 
-.detail-row {
 
-    margin-bottom: 10px;
+        .customer-item:hover {
 
-    line-height: 1.6;
-}
+            background: #f5f8ff;
 
+            border-color: #003C9D;
+        }
 
-.detail-label {
 
-    font-weight: bold;
+        .customer-name {
 
-    color: #555;
-}
+            font-weight: bold;
 
+            font-size: 16px;
 
-.photo-grid {
+            color: #003C9D;
 
-    display: grid;
+            margin-bottom: 5px;
+        }
 
-    grid-template-columns:
-        repeat(2, 1fr);
 
-    gap: 10px;
-}
+        .customer-info {
 
+            font-size: 13px;
 
-.photo-item {
+            color: #666;
 
-    background: #f5f5f5;
+            line-height: 1.7;
+        }
 
-    border-radius: 8px;
 
-    overflow: hidden;
+        .empty {
 
-    border: 1px solid #ddd;
-}
+            text-align: center;
 
+            color: #888;
 
-.photo-item img {
+            padding: 20px;
+        }
 
-    width: 100%;
 
-    display: block;
-}
+        /* ==================================================
+           客戶詳細資料
+        ================================================== */
 
+        #customerDetail {
 
-.photo-time {
+            display: none;
+        }
 
-    padding: 6px;
 
-    font-size: 12px;
+        .back-btn {
 
-    color: #666;
-}
+            background: #777;
 
+            margin-top: 0;
 
-.repair-item {
+            margin-bottom: 15px;
+        }
 
-    border-left: 4px solid #003C9D;
 
-    background: #f7f9fc;
+        .back-btn:hover {
 
-    padding: 12px;
+            background: #555;
+        }
 
-    margin-bottom: 10px;
 
-    border-radius: 5px;
-}
+        .info-row {
 
+            display: flex;
 
-.repair-date {
+            border-bottom: 1px solid #eee;
 
-    font-weight: bold;
+            padding: 10px 0;
 
-    color: #003C9D;
-}
+            gap: 10px;
+        }
 
 
-.repair-title {
+        .info-label {
 
-    font-weight: bold;
+            width: 90px;
 
-    margin-top: 5px;
-}
+            flex-shrink: 0;
 
+            font-weight: bold;
 
-.repair-content {
+            color: #555;
+        }
 
-    margin-top: 5px;
 
-    line-height: 1.6;
-}
+        .info-value {
 
+            flex: 1;
 
-.empty {
+            word-break: break-word;
+        }
 
-    text-align: center;
 
-    padding: 20px;
+        /* ==================================================
+           照片
+        ================================================== */
 
-    color: #888;
-}
+        .photo-grid {
 
+            display: grid;
 
-@media (
-    max-width: 600px
-) {
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(140px, 1fr)
+                );
 
-    body {
+            gap: 10px;
+        }
 
-        padding: 10px;
-    }
 
+        .photo-item {
 
-    .card {
+            background: #f5f5f5;
 
-        padding: 15px;
-    }
+            border-radius: 8px;
 
+            overflow: hidden;
 
-    .search-box {
+            border: 1px solid #ddd;
+        }
 
-        display: block;
-    }
 
+        .photo-item img {
 
-    .search-box button {
+            display: block;
 
-        width: 100%;
+            width: 100%;
 
-        margin-top: 10px;
-    }
+            height: 150px;
 
+            object-fit: cover;
 
-    .topbar {
+            cursor: pointer;
+        }
 
-        align-items: flex-start;
-    }
 
-}
+        .photo-name {
 
-</style>
+            padding: 7px;
+
+            font-size: 11px;
+
+            color: #666;
+
+            word-break: break-all;
+        }
+
+
+        /* ==================================================
+           維修紀錄
+        ================================================== */
+
+        .repair-item {
+
+            border: 1px solid #eee;
+
+            border-radius: 9px;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            background: #fafafa;
+        }
+
+
+        .repair-date {
+
+            color: #003C9D;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .repair-row {
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        .repair-label {
+
+            font-weight: bold;
+
+            color: #555;
+        }
+
+
+        /* ==================================================
+           維修表單
+        ================================================== */
+
+        .repair-form {
+
+            margin-top: 15px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eee;
+        }
+
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 90px;
+
+            padding: 10px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            resize: vertical;
+        }
+
+
+        /* ==================================================
+           修改帳號密碼
+        ================================================== */
+
+        .account-box {
+
+            background: #f8f9fb;
+
+            border: 1px solid #eee;
+
+            padding: 15px;
+
+            border-radius: 9px;
+
+            margin-top: 10px;
+        }
+
+
+        .danger-btn {
+
+            background: #b42318;
+        }
+
+
+        .danger-btn:hover {
+
+            background: #8f1c14;
+        }
+
+
+        /* ==================================================
+           Loading
+        ================================================== */
+
+        .loading {
+
+            text-align: center;
+
+            color: #666;
+
+            padding: 20px;
+        }
+
+
+        /* ==================================================
+           RWD
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 10px;
+            }
+
+
+            .header {
+
+                align-items: flex-start;
+            }
+
+
+            .photo-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .photo-item img {
+
+                height: 130px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -475,335 +651,1961 @@ button:disabled {
 <div class="container">
 
 
-<!-- ==================================================
-     登入頁面
-================================================== -->
-
-<div
-    id="loginPage"
-    class="card"
->
-
-    <div class="logo">
-
-        <img
-            src="https://i.ibb.co/chRL8DY0/logo.jpg"
-            alt="三久太陽能"
-        >
-
-    </div>
-
-
-    <h1>
-        經銷商後台
-    </h1>
-
-
-    <label>
-        帳號
-    </label>
-
-    <input
-        type="text"
-        id="loginUsername"
-        placeholder="請輸入帳號"
-        autocomplete="username"
-    >
-
-
-    <label>
-        密碼
-    </label>
-
-    <input
-        type="password"
-        id="loginPassword"
-        placeholder="請輸入密碼"
-        autocomplete="current-password"
-    >
-
-
-    <button
-        id="loginButton"
-        onclick="dealerLogin()"
-    >
-        登入
-    </button>
-
+    <!-- ==================================================
+         登入頁面
+    ================================================== -->
 
     <div
-        id="loginStatus"
-        class="status"
-    ></div>
-
-</div>
-
-
-
-<!-- ==================================================
-     第一次登入修改帳號密碼
-================================================== -->
-
-<div
-    id="changePasswordPage"
-    class="card hidden"
->
-
-    <h1>
-        第一次登入
-    </h1>
-
-
-    <p>
-        為了保護您的帳號安全，
-        第一次登入必須修改帳號與密碼。
-    </p>
-
-
-    <label>
-        新帳號
-    </label>
-
-    <input
-        type="text"
-        id="newUsername"
-        placeholder="至少 4 個字元"
-        autocomplete="username"
+        id="loginPage"
+        class="login-box"
     >
 
+        <div class="logo">
 
-    <label>
-        新密碼
-    </label>
-
-    <input
-        type="password"
-        id="newPassword"
-        placeholder="至少 8 個字元"
-        autocomplete="new-password"
-    >
-
-
-    <label>
-        確認新密碼
-    </label>
-
-    <input
-        type="password"
-        id="confirmPassword"
-        placeholder="再次輸入新密碼"
-        autocomplete="new-password"
-    >
-
-
-    <button
-        onclick="changeCredentials()"
-    >
-        儲存新帳號密碼
-    </button>
-
-
-    <div
-        id="changeStatus"
-        class="status"
-    ></div>
-
-</div>
-
-
-
-<!-- ==================================================
-     後台
-================================================== -->
-
-<div
-    id="dashboardPage"
-    class="hidden"
->
-
-
-    <div class="topbar">
-
-        <div>
-
-            <div class="dealer-name">
-                三久太陽能
-            </div>
-
-            <div id="dealerDisplayName">
-                經銷商
-            </div>
+            <img
+                src="https://i.ibb.co/chRL8DY0/logo.jpg"
+                alt="三久太陽能"
+            >
 
         </div>
 
 
-        <button
-            class="secondary"
-            onclick="logout()"
+        <div class="title">
+
+            經銷商後台
+
+        </div>
+
+
+        <label for="username">
+
+            帳號
+
+        </label>
+
+
+        <input
+            type="text"
+            id="username"
+            placeholder="請輸入帳號"
+            autocomplete="username"
         >
-            登出
+
+
+        <label for="password">
+
+            密碼
+
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            placeholder="請輸入密碼"
+            autocomplete="current-password"
+        >
+
+
+        <button
+            id="loginBtn"
+            onclick="dealerLogin()"
+        >
+
+            登入
+
         </button>
+
+
+        <div
+            id="loginMessage"
+            class="message"
+        ></div>
 
     </div>
 
 
 
     <!-- ==================================================
-         客戶搜尋
+         後台首頁
     ================================================== -->
 
-    <div class="card">
-
-        <h2>
-            客戶搜尋
-        </h2>
+    <div
+        id="dashboard"
+    >
 
 
-        <div class="search-box">
+        <div class="header">
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="輸入姓名、電話、地址搜尋"
-                oninput="filterCustomers()"
-            >
+            <div>
+
+                <div class="header-title">
+
+                    三久太陽能｜經銷商後台
+
+                </div>
+
+
+                <div
+                    id="dealerName"
+                    class="dealer-name"
+                ></div>
+
+            </div>
+
 
             <button
-                onclick="loadCustomers()"
+                class="logout-btn"
+                onclick="dealerLogout()"
             >
-                重新整理
+
+                登出
+
             </button>
 
         </div>
 
 
+
+        <!-- ==================================================
+             客戶列表
+        ================================================== -->
+
         <div
-            id="customerList"
-            class="status"
+            id="customerListPage"
         >
-            正在讀取客戶資料...
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    客戶資料
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search"
+                    placeholder="搜尋姓名、電話、地址、機型..."
+                    oninput="filterCustomers()"
+                >
+
+
+                <div
+                    id="customerList"
+                    class="customer-list"
+                >
+
+                    <div class="loading">
+
+                        正在讀取客戶資料...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 修改帳號密碼
+            ================================================== -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    帳號設定
+
+                </div>
+
+
+                <div class="account-box">
+
+
+                    <label for="newUsername">
+
+                        新帳號
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="newUsername"
+                        placeholder="輸入新的帳號"
+                    >
+
+
+                    <label for="newPassword">
+
+                        新密碼
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="輸入新的密碼"
+                    >
+
+
+                    <button
+                        onclick="changeDealerAccount()"
+                    >
+
+                        修改帳號密碼
+
+                    </button>
+
+
+                    <div
+                        id="accountMessage"
+                        class="message"
+                    ></div>
+
+                </div>
+
+            </div>
+
         </div>
+
+
+
+        <!-- ==================================================
+             客戶詳細資料
+        ================================================== -->
+
+        <div
+            id="customerDetail"
+        >
+
+
+            <button
+                class="back-btn"
+                onclick="backToCustomers()"
+            >
+
+                ← 返回客戶列表
+
+            </button>
+
+
+
+            <!-- 客戶基本資料 -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    客戶資料
+
+                </div>
+
+
+                <div id="customerInfo"></div>
+
+            </div>
+
+
+
+            <!-- 客戶照片 -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    歷史照片
+
+                </div>
+
+
+                <div
+                    id="photoGrid"
+                    class="photo-grid"
+                ></div>
+
+            </div>
+
+
+
+            <!-- 維修歷史 -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    維修歷史紀錄
+
+                </div>
+
+
+                <div
+                    id="repairList"
+                ></div>
+
+
+
+                <!-- 新增維修 -->
+
+                <div class="repair-form">
+
+
+                    <div class="card-title">
+
+                        新增維修紀錄
+
+                    </div>
+
+
+                    <label for="repairDate">
+
+                        維修日期
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="repairDate"
+                    >
+
+
+                    <label for="repairType">
+
+                        維修項目
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="repairType"
+                        placeholder="例如：漏水、故障檢查、零件更換"
+                    >
+
+
+                    <label for="repairDescription">
+
+                        維修內容
+
+                    </label>
+
+
+                    <textarea
+                        id="repairDescription"
+                        placeholder="請輸入維修詳細內容"
+                    ></textarea>
+
+
+                    <label for="repairTechnician">
+
+                        技師
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="repairTechnician"
+                        placeholder="請輸入技師姓名"
+                    >
+
+
+                    <label for="repairCost">
+
+                        費用
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="repairCost"
+                        placeholder="例如：1500"
+                    >
+
+
+                    <label for="repairNote">
+
+                        備註
+
+                    </label>
+
+
+                    <textarea
+                        id="repairNote"
+                        placeholder="其他備註"
+                    ></textarea>
+
+
+                    <button
+                        id="addRepairBtn"
+                        onclick="addRepair()"
+                    >
+
+                        新增維修紀錄
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
 
     </div>
 
 
-
-    <!-- ==================================================
-         客戶詳細資料
-    ================================================== -->
-
-    <div
-        id="customerDetail"
-        class="card hidden"
-    >
-
-        <h2>
-            客戶資料
-        </h2>
+</div>
 
 
-        <div
-            id="customerInfo"
-        ></div>
+
+<script>
 
 
-        <hr>
+// =====================================================
+// Google Apps Script API
+// =====================================================
+
+const GOOGLE_API_URL =
+    "https://script.google.com/macros/s/AKfycbwsi-SWa-LZ_fc7gEjtNxkOSg-ZrkigDxol2SxfYD058epCl81ToMeAC4iXCTXAYFSb9Q/exec";
 
 
-        <h2>
-            歷史照片
-        </h2>
+
+// =====================================================
+// 登入資訊
+// =====================================================
+
+let dealerToken =
+    localStorage.getItem(
+        "dealerToken"
+    ) || "";
 
 
-        <div
-            id="photoList"
-            class="photo-grid"
-        ></div>
+let currentDealerName =
+    localStorage.getItem(
+        "dealerName"
+    ) || "";
 
 
-        <hr>
+let customers = [];
 
 
-        <h2>
-            維修歷史
-        </h2>
+let currentCustomer = null;
 
 
-        <div
-            id="repairList"
-        ></div>
+
+// =====================================================
+// 頁面啟動
+// =====================================================
+
+window.addEventListener(
+    "load",
+    function() {
+
+        if (dealerToken) {
+
+            showDashboard();
+
+            loadCustomers();
+
+        }
+
+    }
+);
 
 
-        <hr>
+
+// =====================================================
+// 經銷商登入
+// =====================================================
+
+async function dealerLogin() {
+
+    const username =
+        document.getElementById(
+            "username"
+        ).value.trim();
 
 
-        <h2>
-            新增維修紀錄
-        </h2>
+    const password =
+        document.getElementById(
+            "password"
+        ).value;
 
 
-        <label>
-            維修日期
-        </label>
-
-        <input
-            type="date"
-            id="repairDate"
-        >
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
 
 
-        <label>
-            維修項目
-        </label>
-
-        <input
-            type="text"
-            id="repairType"
-            placeholder="例如：熱水器檢查"
-        >
+    const btn =
+        document.getElementById(
+            "loginBtn"
+        );
 
 
-        <label>
-            維修內容
-        </label>
-
-        <textarea
-            id="repairDescription"
-            placeholder="請輸入維修內容"
-        ></textarea>
+    message.innerText = "";
 
 
-        <label>
-            技師
-        </label>
+    if (!username || !password) {
 
-        <input
-            type="text"
-            id="repairTechnician"
-            placeholder="請輸入技師姓名"
-        >
+        message.innerText =
+            "請輸入帳號與密碼";
+
+        return;
+    }
 
 
-        <label>
-            費用
-        </label>
+    btn.disabled = true;
 
-        <input
-            type="text"
-            id="repairCost"
-            placeholder="例如：1500"
-        >
+    btn.innerText =
+        "登入中...";
 
 
-        <label>
-            備註
-        </label>
+    try {
 
-        <textarea
-            id="repairNote"
-            placeholder="其他備註"
-        ></textarea>
+        const response =
+            await fetch(
+                GOOGLE_API_URL,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "dealerLogin",
+
+                            username:
+                                username,
+
+                            password:
+                                password
+
+                        })
+
+                }
+            );
 
 
-        <button
-            onclick="
+        const data =
+            await response.json();
+
+
+        if (
+            data.status ===
+            "success"
+        ) {
+
+            dealerToken =
+                data.token;
+
+
+            currentDealerName =
+                data.dealerName ||
+                username;
+
+
+            localStorage.setItem(
+                "dealerToken",
+                dealerToken
+            );
+
+
+            localStorage.setItem(
+                "dealerName",
+                currentDealerName
+            );
+
+
+            showDashboard();
+
+
+            loadCustomers();
+
+
+        } else {
+
+            message.innerText =
+                data.message ||
+                "帳號或密碼錯誤";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        message.innerText =
+            "無法連線到伺服器";
+
+    } finally {
+
+        btn.disabled = false;
+
+        btn.innerText =
+            "登入";
+
+    }
+
+}
+
+
+
+// =====================================================
+// 顯示後台
+// =====================================================
+
+function showDashboard() {
+
+    document.getElementById(
+        "loginPage"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "dashboard"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "dealerName"
+    ).innerText =
+        "經銷商：" +
+        currentDealerName;
+
+}
+
+
+
+// =====================================================
+// 讀取所有客戶
+// =====================================================
+
+async function loadCustomers() {
+
+    const list =
+        document.getElementById(
+            "customerList"
+        );
+
+
+    list.innerHTML =
+        '<div class="loading">正在讀取客戶資料...</div>';
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                GOOGLE_API_URL +
+                "?action=getCustomers&token=" +
+                encodeURIComponent(
+                    dealerToken
+                )
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.status !==
+            "success"
+        ) {
+
+            if (
+                data.message &&
+                data.message.includes(
+                    "登入"
+                )
+            ) {
+
+                forceLogout();
+
+                return;
+            }
+
+
+            list.innerHTML =
+                '<div class="empty">' +
+                (data.message ||
+                    "讀取失敗") +
+                '</div>';
+
+            return;
+        }
+
+
+        customers =
+            data.customers || [];
+
+
+        renderCustomers(
+            customers
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        list.innerHTML =
+            '<div class="empty">無法讀取客戶資料</div>';
+
+    }
+
+}
+
+
+
+// =====================================================
+// 顯示客戶列表
+// =====================================================
+
+function renderCustomers(listData) {
+
+    const list =
+        document.getElementById(
+            "customerList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        !listData ||
+        listData.length === 0
+    ) {
+
+        list.innerHTML =
+            '<div class="empty">' +
+            '目前沒有客戶資料' +
+            '</div>';
+
+        return;
+    }
+
+
+    listData.forEach(
+        function(customer) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "customer-item";
+
+
+            item.onclick =
+                function() {
+
+                    openCustomer(
+                        customer.userId
+                    );
+
+                };
+
+
+            item.innerHTML = `
+
+                <div class="customer-name">
+
+                    ${escapeHtml(
+                        customer.name ||
+                        "未填寫姓名"
+                    )}
+
+                </div>
+
+                <div class="customer-info">
+
+                    電話：
+                    ${escapeHtml(
+                        customer.phone ||
+                        "-"
+                    )}
+
+                    <br>
+
+                    地址：
+                    ${escapeHtml(
+                        customer.address ||
+                        "-"
+                    )}
+
+                    <br>
+
+                    機型：
+                    ${escapeHtml(
+                        customer.model ||
+                        "-"
+                    )}
+
+                    <br>
+
+                    安裝日期：
+                    ${escapeHtml(
+                        customer.installDate ||
+                        "-"
+                    )}
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+// =====================================================
+// 搜尋客戶
+// =====================================================
+
+function filterCustomers() {
+
+    const keyword =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    if (!keyword) {
+
+        renderCustomers(
+            customers
+        );
+
+        return;
+    }
+
+
+    const filtered =
+        customers.filter(
+            function(customer) {
+
+                const text =
+                    [
+
+                        customer.name,
+
+                        customer.phone,
+
+                        customer.address,
+
+                        customer.model
+
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+
+                return text.includes(
+                    keyword
+                );
+
+            }
+        );
+
+
+    renderCustomers(
+        filtered
+    );
+
+}
+
+
+
+// =====================================================
+// 開啟客戶詳細資料
+// =====================================================
+
+async function openCustomer(userId) {
+
+    document.getElementById(
+        "customerListPage"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "customerDetail"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "customerInfo"
+    ).innerHTML =
+        '<div class="loading">正在讀取客戶資料...</div>';
+
+
+    document.getElementById(
+        "photoGrid"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "repairList"
+    ).innerHTML = "";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                GOOGLE_API_URL +
+                "?action=getDealerCustomer" +
+                "&token=" +
+                encodeURIComponent(
+                    dealerToken
+                ) +
+                "&customerUserId=" +
+                encodeURIComponent(
+                    userId
+                )
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.status !==
+            "success"
+        ) {
+
+            if (
+                data.message &&
+                data.message.includes(
+                    "登入"
+                )
+            ) {
+
+                forceLogout();
+
+                return;
+            }
+
+
+            alert(
+                data.message ||
+                "讀取客戶資料失敗"
+            );
+
+
+            backToCustomers();
+
+            return;
+        }
+
+
+        currentCustomer =
+            data.customer;
+
+
+        renderCustomerInfo(
+            data.customer
+        );
+
+
+        renderPhotos(
+            data.photos || []
+        );
+
+
+        renderRepairs(
+            data.repairs || []
+        );
+
+
+        // 預設今天
+
+        document.getElementById(
+            "repairDate"
+        ).value =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "無法連線到伺服器"
+        );
+
+
+        backToCustomers();
+
+    }
+
+}
+
+
+
+// =====================================================
+// 顯示客戶資料
+// =====================================================
+
+function renderCustomerInfo(customer) {
+
+    const box =
+        document.getElementById(
+            "customerInfo"
+        );
+
+
+    if (!customer) {
+
+        box.innerHTML =
+            '<div class="empty">找不到客戶資料</div>';
+
+        return;
+    }
+
+
+    box.innerHTML = `
+
+        <div class="info-row">
+
+            <div class="info-label">
+                姓名
+            </div>
+
+            <div class="info-value">
+                ${escapeHtml(
+                    customer.name || "-"
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                電話
+            </div>
+
+            <div class="info-value">
+                ${escapeHtml(
+                    customer.phone || "-"
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                地址
+            </div>
+
+            <div class="info-value">
+                ${escapeHtml(
+                    customer.address || "-"
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                機型
+            </div>
+
+            <div class="info-value">
+                ${escapeHtml(
+                    customer.model || "-"
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                安裝日期
+            </div>
+
+            <div class="info-value">
+                ${escapeHtml(
+                    customer.installDate || "-"
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// =====================================================
+// 顯示照片
+// =====================================================
+
+function renderPhotos(photos) {
+
+    const grid =
+        document.getElementById(
+            "photoGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    if (
+        !photos ||
+        photos.length === 0
+    ) {
+
+        grid.innerHTML =
+            '<div class="empty">尚無歷史照片</div>';
+
+        return;
+    }
+
+
+    photos.forEach(
+        function(photo) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "photo-item";
+
+
+            item.innerHTML = `
+
+                <img
+                    src="${escapeAttribute(
+                        photo.url
+                    )}"
+                    alt="客戶照片"
+                    onclick="window.open(
+                        '${escapeAttribute(
+                            photo.url
+                        )}',
+                        '_blank'
+                    )"
+                >
+
+
+                <div class="photo-name">
+
+                    ${escapeHtml(
+                        photo.filename ||
+                        ""
+                    )}
+
+                    <br>
+
+                    ${escapeHtml(
+                        photo.uploadTime ||
+                        ""
+                    )}
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+// =====================================================
+// 顯示維修紀錄
+// =====================================================
+
+function renderRepairs(repairs) {
+
+    const list =
+        document.getElementById(
+            "repairList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        !repairs ||
+        repairs.length === 0
+    ) {
+
+        list.innerHTML =
+            '<div class="empty">尚無維修紀錄</div>';
+
+        return;
+    }
+
+
+    repairs.forEach(
+        function(repair) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "repair-item";
+
+
+            item.innerHTML = `
+
+                <div class="repair-date">
+
+                    維修日期：
+                    ${escapeHtml(
+                        repair.repairDate ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div class="repair-row">
+
+                    <span class="repair-label">
+                        維修項目：
+                    </span>
+
+                    ${escapeHtml(
+                        repair.type ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div class="repair-row">
+
+                    <span class="repair-label">
+                        維修內容：
+                    </span>
+
+                    ${escapeHtml(
+                        repair.description ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div class="repair-row">
+
+                    <span class="repair-label">
+                        技師：
+                    </span>
+
+                    ${escapeHtml(
+                        repair.technician ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div class="repair-row">
+
+                    <span class="repair-label">
+                        費用：
+                    </span>
+
+                    ${escapeHtml(
+                        repair.cost ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div class="repair-row">
+
+                    <span class="repair-label">
+                        備註：
+                    </span>
+
+                    ${escapeHtml(
+                        repair.note ||
+                        "-"
+                    )}
+
+                </div>
+
+
+                <div
+                    class="repair-row"
+                    style="
+                        margin-top:8px;
+                        color:#999;
+                        font-size:12px;
+                    "
+                >
+
+                    建立時間：
+                    ${escapeHtml(
+                        repair.createdAt ||
+                        "-"
+                    )}
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+// =====================================================
+// 新增維修紀錄
+// =====================================================
+
+async function addRepair() {
+
+    if (
+        !currentCustomer ||
+        !currentCustomer.userId
+    ) {
+
+        alert(
+            "尚未選擇客戶"
+        );
+
+        return;
+    }
+
+
+    const repairDate =
+        document.getElementById(
+            "repairDate"
+        ).value;
+
+
+    const type =
+        document.getElementById(
+            "repairType"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "repairDescription"
+        ).value.trim();
+
+
+    const technician =
+        document.getElementById(
+            "repairTechnician"
+        ).value.trim();
+
+
+    const cost =
+        document.getElementById(
+            "repairCost"
+        ).value.trim();
+
+
+    const note =
+        document.getElementById(
+            "repairNote"
+        ).value.trim();
+
+
+    if (!repairDate) {
+
+        alert(
+            "請輸入維修日期"
+        );
+
+        return;
+    }
+
+
+    if (!type) {
+
+        alert(
+            "請輸入維修項目"
+        );
+
+        return;
+    }
+
+
+    const btn =
+        document.getElementById(
+            "addRepairBtn"
+        );
+
+
+    btn.disabled = true;
+
+    btn.innerText =
+        "儲存中...";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                GOOGLE_API_URL,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "dealerAddRepair",
+
+                            token:
+                                dealerToken,
+
+                            customerUserId:
+                                currentCustomer.userId,
+
+                            repairDate:
+                                repairDate,
+
+                            type:
+                                type,
+
+                            description:
+                                description,
+
+                            technician:
+                                technician,
+
+                            cost:
+                                cost,
+
+                            note:
+                                note
+
+                        })
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.status ===
+            "success"
+        ) {
+
+            alert(
+                "維修紀錄已新增"
+            );
+
+
+            // 清空表單
+
+            document.getElementById(
+                "repairType"
+            ).value = "";
+
+
+            document.getElementById(
+                "repairDescription"
+            ).value = "";
+
+
+            document.getElementById(
+                "repairTechnician"
+            ).value = "";
+
+
+            document.getElementById(
+                "repairCost"
+            ).value = "";
+
+
+            document.getElementById(
+                "repairNote"
+            ).value = "";
+
+
+            // 重新讀取客戶
+
+            openCustomer(
+                currentCustomer.userId
+            );
+
+
+        } else {
+
+            alert(
+                data.message ||
+                "新增失敗"
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "無法連線到伺服器"
+        );
+
+    } finally {
+
+        btn.disabled = false;
+
+        btn.innerText =
+            "新增維修紀錄";
+
+    }
+
+}
+
+
+
+// =====================================================
+// 修改經銷商帳號密碼
+// =====================================================
+
+async function changeDealerAccount() {
+
+    const newUsername =
+        document.getElementById(
+            "newUsername"
+        ).value.trim();
+
+
+    const newPassword =
+        document.getElementById(
+            "newPassword"
+        ).value;
+
+
+    const message =
+        document.getElementById(
+            "accountMessage"
+        );
+
+
+    message.innerText = "";
+
+
+    if (!newUsername) {
+
+        message.innerText =
+            "請輸入新帳號";
+
+        return;
+    }
+
+
+    if (!newPassword) {
+
+        message.innerText =
+            "請輸入新密碼";
+
+        return;
+    }
+
+
+    if (
+        newPassword.length < 6
+    ) {
+
+        message.innerText =
+            "新密碼至少需要 6 個字元";
+
+        return;
+    }
+
+
+    const confirmChange =
+        confirm(
+            "確定要修改帳號與密碼嗎？\n修改後需要使用新的帳號密碼重新登入。"
+        );
+
+
+    if (!confirmChange) {
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                GOOGLE_API_URL,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "changeDealerAccount",
+
+                            token:
+                                dealerToken,
+
+                            newUsername:
+                                newUsername,
+
+                            newPassword:
+                                newPassword
+
+                        })
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.status ===
+            "success"
+        ) {
+
+            alert(
+                "帳號密碼修改成功，請使用新帳號重新登入。"
+            );
+
+
+            forceLogout();
+
+
+        } else {
+
+            message.innerText =
+                data.message ||
+                "修改失敗";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        message.innerText =
+            "無法連線到伺服器";
+
+    }
+
+}
+
+
+
+// =====================================================
+// 登出
+// =====================================================
+
+async function dealerLogout() {
+
+    try {
+
+        if (dealerToken) {
+
+            await fetch(
+
+                GOOGLE_API_URL,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "dealerLogout",
+
+                            token:
+                                dealerToken
+
+                        })
+
+                }
+
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+
+    forceLogout();
+
+}
+
+
+
+// =====================================================
+// 強制登出
+// =====================================================
+
+function forceLogout() {
+
+    dealerToken = "";
+
+    currentDealerName = "";
+
+    customers = [];
+
+    currentCustomer = null;
+
+
+    localStorage.removeItem(
+        "dealerToken"
+    );
+
+
+    localStorage.removeItem(
+        "dealerName"
+    );
+
+
+    document.getElementById(
+        "dashboard"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "loginPage"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "username"
+    ).value = "";
+
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+
+    document.getElementById(
+        "loginMessage"
+    ).innerText = "";
+
+}
+
+
+
+// =====================================================
+// 返回客戶列表
+// =====================================================
+
+function backToCustomers() {
+
+    currentCustomer = null;
+
+
+    document.getElementById(
+        "customerDetail"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "customerListPage"
+    ).style.display =
+        "block";
+
+
+    loadCustomers();
+
+}
+
+
+
+// =====================================================
+// HTML 安全處理
+// =====================================================
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+// =====================================================
+// Attribute 安全處理
+// =====================================================
+
+function escapeAttribute(value) {
+
+    return escapeHtml(
+        value
+    )
+    .replace(
+        /`/g,
+        "&#096;"
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
