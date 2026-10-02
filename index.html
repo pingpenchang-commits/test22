@@ -139,7 +139,7 @@
 
         textarea {
 
-            min-height: 90px;
+            min-height: 100px;
 
             resize: vertical;
         }
@@ -582,7 +582,23 @@
            帳號設定
         ================================================== */
 
+        .account-setting-btn {
+
+            background: #003C9D;
+
+            margin-top: 0;
+        }
+
+
+        .account-setting-btn:hover {
+
+            background: #002d75;
+        }
+
+
         .account-box {
+
+            display: none;
 
             background: #f8f9fb;
 
@@ -592,7 +608,27 @@
 
             border-radius: 9px;
 
+            margin-top: 15px;
+        }
+
+
+        .account-box.show {
+
+            display: block;
+        }
+
+
+        .account-close-btn {
+
+            background: #777;
+
             margin-top: 10px;
+        }
+
+
+        .account-close-btn:hover {
+
+            background: #555;
         }
 
 
@@ -708,7 +744,7 @@
 
         <div class="title">
 
-            經銷商後台
+            客戶資料後台
 
         </div>
 
@@ -766,9 +802,7 @@
          後台
     ================================================== -->
 
-    <div
-        id="dashboard"
-    >
+    <div id="dashboard">
 
 
         <div class="header">
@@ -777,7 +811,7 @@
 
                 <div class="header-title">
 
-                    三久太陽能｜經銷商後台
+                    坤晟企業行｜經銷商後台
 
                 </div>
 
@@ -807,9 +841,8 @@
              客戶列表頁
         ================================================== -->
 
-        <div
-            id="customerListPage"
-        >
+        <div id="customerListPage">
+
 
             <!-- 首次登入提示 -->
 
@@ -822,11 +855,15 @@
 
                 <br>
 
-                為了帳號安全，請先在下方
+                為了帳號安全，請先點擊下方
                 「帳號設定」修改帳號與密碼。
 
             </div>
 
+
+            <!-- ==================================================
+                 客戶資料
+            ================================================== -->
 
             <div class="card">
 
@@ -876,8 +913,21 @@
                 </div>
 
 
-                <div class="account-box">
+                <button
+                    id="accountSettingBtn"
+                    class="account-setting-btn"
+                    onclick="toggleAccountSettings()"
+                >
 
+                    帳號設定
+
+                </button>
+
+
+                <div
+                    id="accountBox"
+                    class="account-box"
+                >
 
                     <label for="newUsername">
 
@@ -934,6 +984,17 @@
                     </button>
 
 
+                    <button
+                        type="button"
+                        class="account-close-btn"
+                        onclick="toggleAccountSettings(false)"
+                    >
+
+                        關閉帳號設定
+
+                    </button>
+
+
                     <div
                         id="accountMessage"
                         class="message"
@@ -951,9 +1012,7 @@
              客戶詳細資料
         ================================================== -->
 
-        <div
-            id="customerDetail"
-        >
+        <div id="customerDetail">
 
 
             <button
@@ -980,9 +1039,7 @@
                 </div>
 
 
-                <div
-                    id="customerInfo"
-                ></div>
+                <div id="customerInfo"></div>
 
             </div>
 
@@ -1023,9 +1080,7 @@
                 </div>
 
 
-                <div
-                    id="repairList"
-                ></div>
+                <div id="repairList"></div>
 
 
 
@@ -1055,20 +1110,6 @@
                     >
 
 
-                    <label for="repairType">
-
-                        維修項目
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="repairType"
-                        placeholder="例如：漏水、故障檢查、零件更換"
-                    >
-
-
                     <label for="repairDescription">
 
                         維修內容
@@ -1078,36 +1119,8 @@
 
                     <textarea
                         id="repairDescription"
-                        placeholder="請輸入維修詳細內容"
+                        placeholder="請輸入維修內容"
                     ></textarea>
-
-
-                    <label for="repairTechnician">
-
-                        技師
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="repairTechnician"
-                        placeholder="請輸入技師姓名"
-                    >
-
-
-                    <label for="repairCost">
-
-                        費用
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="repairCost"
-                        placeholder="例如：1500"
-                    >
 
 
                     <label for="repairNote">
@@ -1242,6 +1255,8 @@ async function dealerLogin() {
 
     message.innerText = "";
 
+    message.style.color = "#d00";
+
 
     if (!username || !password) {
 
@@ -1345,6 +1360,9 @@ async function dealerLogin() {
                 setTimeout(
                     function() {
 
+                        toggleAccountSettings(true);
+
+
                         document.getElementById(
                             "newUsername"
                         ).focus();
@@ -1356,7 +1374,7 @@ async function dealerLogin() {
 
                 alert(
                     "這是第一次登入。\n\n" +
-                    "為了帳號安全，請先修改帳號與密碼。"
+                    "請點擊「帳號設定」修改帳號與密碼。"
                 );
 
             } else {
@@ -1428,6 +1446,71 @@ function showDashboard() {
 
 
 // =====================================================
+// 帳號設定開關
+// =====================================================
+
+function toggleAccountSettings(forceState) {
+
+    const box =
+        document.getElementById(
+            "accountBox"
+        );
+
+
+    const btn =
+        document.getElementById(
+            "accountSettingBtn"
+        );
+
+
+    let shouldShow;
+
+
+    if (
+        typeof forceState ===
+        "boolean"
+    ) {
+
+        shouldShow =
+            forceState;
+
+    } else {
+
+        shouldShow =
+            !box.classList.contains(
+                "show"
+            );
+
+    }
+
+
+    if (shouldShow) {
+
+        box.classList.add(
+            "show"
+        );
+
+
+        btn.innerText =
+            "關閉帳號設定";
+
+    } else {
+
+        box.classList.remove(
+            "show"
+        );
+
+
+        btn.innerText =
+            "帳號設定";
+
+    }
+
+}
+
+
+
+// =====================================================
 // 讀取所有客戶
 // =====================================================
 
@@ -1468,10 +1551,32 @@ async function loadCustomers() {
 
             if (
                 data.message &&
-                data.message.includes(
-                    "登入"
+                (
+                    data.message.includes(
+                        "登入"
+                    ) ||
+                    data.message.includes(
+                        "修改帳號"
+                    ) ||
+                    data.mustChangePassword
                 )
             ) {
+
+                if (
+                    data.mustChangePassword
+                ) {
+
+                    document.getElementById(
+                        "firstLoginNotice"
+                    ).style.display =
+                        "block";
+
+
+                    toggleAccountSettings(true);
+
+                    return;
+                }
+
 
                 forceLogout();
 
@@ -2072,6 +2177,11 @@ function renderPhotos(photos) {
 
 // =====================================================
 // 維修紀錄
+//
+// 前端只顯示：
+// 1. 維修日期
+// 2. 維修內容
+// 3. 備註
 // =====================================================
 
 function renderRepairs(repairs) {
@@ -2128,20 +2238,6 @@ function renderRepairs(repairs) {
                 <div class="repair-row">
 
                     <span class="repair-label">
-                        維修項目：
-                    </span>
-
-                    ${escapeHtml(
-                        repair.type ||
-                        "-"
-                    )}
-
-                </div>
-
-
-                <div class="repair-row">
-
-                    <span class="repair-label">
                         維修內容：
                     </span>
 
@@ -2156,57 +2252,11 @@ function renderRepairs(repairs) {
                 <div class="repair-row">
 
                     <span class="repair-label">
-                        技師：
-                    </span>
-
-                    ${escapeHtml(
-                        repair.technician ||
-                        "-"
-                    )}
-
-                </div>
-
-
-                <div class="repair-row">
-
-                    <span class="repair-label">
-                        費用：
-                    </span>
-
-                    ${escapeHtml(
-                        repair.cost ||
-                        "-"
-                    )}
-
-                </div>
-
-
-                <div class="repair-row">
-
-                    <span class="repair-label">
                         備註：
                     </span>
 
                     ${escapeHtml(
                         repair.note ||
-                        "-"
-                    )}
-
-                </div>
-
-
-                <div
-                    class="repair-row"
-                    style="
-                        margin-top:8px;
-                        color:#999;
-                        font-size:12px;
-                    "
-                >
-
-                    建立時間：
-                    ${escapeHtml(
-                        repair.createdAt ||
                         "-"
                     )}
 
@@ -2228,6 +2278,11 @@ function renderRepairs(repairs) {
 
 // =====================================================
 // 新增維修紀錄
+//
+// 只使用：
+// 1. 維修日期
+// 2. 維修內容
+// 3. 備註
 // =====================================================
 
 async function addRepair() {
@@ -2265,27 +2320,9 @@ async function addRepair() {
         ).value;
 
 
-    const type =
-        document.getElementById(
-            "repairType"
-        ).value.trim();
-
-
     const description =
         document.getElementById(
             "repairDescription"
-        ).value.trim();
-
-
-    const technician =
-        document.getElementById(
-            "repairTechnician"
-        ).value.trim();
-
-
-    const cost =
-        document.getElementById(
-            "repairCost"
         ).value.trim();
 
 
@@ -2305,10 +2342,10 @@ async function addRepair() {
     }
 
 
-    if (!type) {
+    if (!description) {
 
         alert(
-            "請輸入維修項目"
+            "請輸入維修內容"
         );
 
         return;
@@ -2363,17 +2400,26 @@ async function addRepair() {
                             repairDate:
                                 repairDate,
 
+                            // 為了相容目前 GAS，
+                            // type 留空
+
                             type:
-                                type,
+                                "",
 
                             description:
                                 description,
 
+                            // 為了相容目前 GAS，
+                            // technician 留空
+
                             technician:
-                                technician,
+                                "",
+
+                            // 為了相容目前 GAS，
+                            // cost 留空
 
                             cost:
-                                cost,
+                                "",
 
                             note:
                                 note
@@ -2400,22 +2446,7 @@ async function addRepair() {
 
 
             document.getElementById(
-                "repairType"
-            ).value = "";
-
-
-            document.getElementById(
                 "repairDescription"
-            ).value = "";
-
-
-            document.getElementById(
-                "repairTechnician"
-            ).value = "";
-
-
-            document.getElementById(
-                "repairCost"
             ).value = "";
 
 
@@ -2433,10 +2464,32 @@ async function addRepair() {
 
             if (
                 data.message &&
-                data.message.includes(
-                    "登入"
+                (
+                    data.message.includes(
+                        "登入"
+                    ) ||
+                    data.mustChangePassword
                 )
             ) {
+
+                if (
+                    data.mustChangePassword
+                ) {
+
+                    alert(
+                        "請先修改帳號與密碼"
+                    );
+
+
+                    backToCustomers();
+
+
+                    toggleAccountSettings(true);
+
+
+                    return;
+                }
+
 
                 forceLogout();
 
@@ -2527,6 +2580,8 @@ async function changeDealerAccount() {
 
 
     message.innerText = "";
+
+    message.style.color = "#d00";
 
 
     // =================================================
@@ -2737,6 +2792,18 @@ async function changeDealerAccount() {
                 "帳號與密碼修改成功";
 
 
+            // 修改完成後收起設定
+
+            setTimeout(
+                function() {
+
+                    toggleAccountSettings(false);
+
+                },
+                800
+            );
+
+
         } else {
 
             if (
@@ -2919,6 +2986,31 @@ function forceLogout() {
     ).style.display =
         "none";
 
+
+    // 關閉帳號設定
+
+    toggleAccountSettings(false);
+
+
+    document.getElementById(
+        "newUsername"
+    ).value = "";
+
+
+    document.getElementById(
+        "newPassword"
+    ).value = "";
+
+
+    document.getElementById(
+        "confirmPassword"
+    ).value = "";
+
+
+    document.getElementById(
+        "accountMessage"
+    ).innerText = "";
+
 }
 
 
@@ -3017,6 +3109,7 @@ document.getElementById(
 
     }
 );
+
 
 
 // =====================================================
